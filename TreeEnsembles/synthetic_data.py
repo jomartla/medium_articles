@@ -14,7 +14,7 @@ def create_data(categorical=True):
     # Creating a Pandas DataFrame from the dictionary
     dataframe = pd.DataFrame.from_dict(dictionary)
 
-    # Let's create the output variable depending on the features defined above
+    # Let's create the output variable (price) depending on the features defined above
     # Every square_meter value is 1000
     square_meters_value = (dataframe["square_meters"] * 1000)
 
@@ -33,8 +33,7 @@ def create_data(categorical=True):
 
     dataframe["price"] = round(square_meters_value * has_garage_value * has_garden_value * noise_value, 0)
 
-    # Finally, the price is converted to a categorical feature. Thus, it is easy to understand the ensembles techniques behaviour
-    
+    # Finally, the price is converted to a categorical feature if it is required in the parameter of the function.
     if categorical:
         conditions = [dataframe["price"] < 100_000, 
                   (dataframe["price"] >= 100_000) & (dataframe["price"] < 200_000), 
